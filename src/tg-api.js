@@ -6,7 +6,7 @@ export const tgGetUpdates = async (inputParams) => {
   const { offset } = inputParams;
   const token = process.env.TOKEN_ARRAY[tokenIndex];
 
-  const url = `${process.env.TG_API_URL}${token}/getUpdates?offset=${offset}`;
+  const url = `https://api.telegram.org/bot${token}/getUpdates?offset=${offset}`;
   const data = await tgGetReq(url);
 
   const checkData = await checkToken(data);
