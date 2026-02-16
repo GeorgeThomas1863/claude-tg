@@ -1,0 +1,25 @@
+.env
+.env.local
+.env.test.local
+.env.production.local
+.env.*
+.env.*.local
+
+# Dependency directories
+node_modules/
+package-lock.json
+
+# Optional npm cache directory
+.npm
+
+
+# vitepress build output
+**/.vitepress/dist
+
+# vitepress cache directory
+**/.vitepress/cache
+
+# Stores VSCode versions used for testing VSCode extensions
+.vscode-test
+.vscode/
+

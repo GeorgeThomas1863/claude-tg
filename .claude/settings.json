@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ~/.claude/hooks/UserPromptSubmit/ultimate-prompt-hook.js"
+          }
+        ]
+      }
+    ]
+  }
+}
