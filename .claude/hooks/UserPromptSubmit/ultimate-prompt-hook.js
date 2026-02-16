@@ -1,6 +1,7 @@
+#!/usr/bin/env node
 /**
  * Ultimate UserPromptSubmit Hook for Claude Code (JavaScript ESM Port)
- * Original Python version ported to Node.js ESM with zero dependencies.
+ * Original Python version ported to Node.js ESM with zero dependencie. [Requires type: module in package.json]
  *
  * Features:
  * - McKay's ultrathink flag (-u) for maximum thinking
@@ -384,6 +385,22 @@ export const main = () => {
     const enhancer = new PromptEnhancer();
     enhancer.logEvent("original_prompt", prompt);
     enhancer.logEvent("session_id", sessionId);
+
+    // Handle bare "hh" without dash (for CLI-friendly help)
+    if (prompt.trim().toLowerCase() === "hh") {
+      enhancer.addContext(getCurrentDate());
+      enhancer.addContext(FlagHandlers.help());
+      enhancer.logEvent("flags", ["hh"]);
+      enhancer.logEvent("clean_prompt", "");
+      enhancer.logEvent("help_request", true);
+      enhancer.logEvent("applied_flags", ["hh"]);
+      if (enhancer.contexts.length) {
+        process.stdout.write(enhancer.contexts.join("\n"));
+        enhancer.logEvent("injected_context", enhancer.contexts.join("\n"));
+      }
+      writeLog(enhancer);
+      process.exit(0);
+    }
 
     // Parse flags
     let [cleanPrompt, flags] = parseFlags(prompt);
