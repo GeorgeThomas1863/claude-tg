@@ -308,22 +308,37 @@ function formatDate(date) {
 }
 
 function parseFlags(prompt) {
-  const flagsPattern = /((?:^|\s+)-[a-zA-Z_]+)+$/;
-  const match = prompt.match(flagsPattern);
+  const flags = [];
+  let cleanPrompt = prompt;
 
-  if (match) {
-    const flagsStr = match[0];
-    const cleanPrompt = prompt.slice(0, match.index).trimEnd();
-    const flags = [];
+  // Check for flags at the end: "fix the bug -u -debug"
+  const endPattern = /((?:\s+)-[a-zA-Z_]+)+$/;
+  const endMatch = cleanPrompt.match(endPattern);
+  if (endMatch) {
     const flagRe = /-([a-zA-Z_]+)/g;
     let m;
-    while ((m = flagRe.exec(flagsStr)) !== null) {
+    while ((m = flagRe.exec(endMatch[0])) !== null) {
       flags.push(m[1]);
     }
-    return [cleanPrompt, flags];
+    cleanPrompt = cleanPrompt.slice(0, endMatch.index).trimEnd();
   }
 
-  return [prompt, []];
+  // Check for flags at the beginning: "-u -debug fix the bug"
+  const startPattern = /^(-[a-zA-Z_]+(?:\s+-[a-zA-Z_]+)*)(?:\s+|$)/;
+  const startMatch = cleanPrompt.match(startPattern);
+  if (startMatch) {
+    const flagRe = /-([a-zA-Z_]+)/g;
+    let m;
+    while ((m = flagRe.exec(startMatch[1])) !== null) {
+      // Avoid duplicates if same flag used at both ends
+      if (!flags.includes(m[1])) {
+        flags.push(m[1]);
+      }
+    }
+    cleanPrompt = cleanPrompt.slice(startMatch[0].length).trimStart();
+  }
+
+  return [cleanPrompt, flags];
 }
 
 function shouldApplyDefaults(prompt) {

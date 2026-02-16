@@ -9,6 +9,9 @@
 node_modules/
 package-lock.json
 
+.claude/settings.json
+.claude/logs/
+
 # Optional npm cache directory
 .npm
 

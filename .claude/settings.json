@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node ~/.claude/hooks/UserPromptSubmit/ultimate-prompt-hook.js"
+            "command": "node C:/Users/computer/Desktop/ALL2/PROJECTS/CODING_PROJECTS/BOTS/TG/claude-tg/.claude/hooks/UserPromptSubmit/ultimate-prompt-hook.js"
           }
         ]
       }
