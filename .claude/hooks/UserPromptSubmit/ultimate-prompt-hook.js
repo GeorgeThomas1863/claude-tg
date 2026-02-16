@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 /**
  * Ultimate UserPromptSubmit Hook for Claude Code (JavaScript ESM Port)
  * Original Python version ported to Node.js ESM with zero dependencie. [Requires type: module in package.json]
