@@ -361,7 +361,7 @@ function writeLog(enhancer) {
 
 export const main = () => {
   try {
-    const raw = readFileSync("/dev/stdin", "utf8");
+    const raw = readFileSync(process.stdin.fd, "utf8");
     const inputData = JSON.parse(raw);
     const prompt = inputData.prompt || "";
     const sessionId = inputData.session_id || "unknown";
